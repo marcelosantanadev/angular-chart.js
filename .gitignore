@@ -5,3 +5,4 @@ test/fixtures/shots/
 coverage/
 examples/bundle.js
 examples/commonjs.bundle.js
+bower_components/
