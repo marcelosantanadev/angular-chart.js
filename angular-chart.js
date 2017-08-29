@@ -277,9 +277,9 @@
       var alpha = color[3] || 1;
       color = color.slice(0, 3);
       return {
-        backgroundColor: rgba(color),
+        backgroundColor: rgba(color, 1),
         pointBackgroundColor: rgba(color, alpha),
-        pointHoverBackgroundColor: rgba(color, 0.8),
+        pointHoverBackgroundColor: rgba(color, 1),
         borderColor: rgba(color, alpha),
         pointBorderColor: '#fff',
         pointHoverBorderColor: rgba(color, alpha)
