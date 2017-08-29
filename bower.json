@@ -39,6 +39,6 @@
   ],
   "dependencies": {
     "angular": "1.x",
-    "chart.js": "https://github.com/marcelosantanadev/Chart.js.git#0e18d8c"
+    "chart.js": "https://github.com/marcelosantanadev/Chart.js.git#1797e04"
   }
 }
