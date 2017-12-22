@@ -127,7 +127,8 @@
           chartColors: '=?',
           chartClick: '=?',
           chartHover: '=?',
-          chartDatasetOverride: '=?'
+          chartDatasetOverride: '=?',
+          chartFill: '=?'
         },
         link: function (scope, elem/*, attrs */) {
           if (useExcanvas) window.G_vmlCanvasManager.initElement(elem[0]);
@@ -139,6 +140,7 @@
           scope.$watch('chartOptions', watchOther, true);
           scope.$watch('chartColors', watchOther, true);
           scope.$watch('chartDatasetOverride', watchOther, true);
+          scope.$watch('chartFill', watchOther, true)
           scope.$watch('chartType', watchType, false);
 
           scope.$on('$destroy', function () {
@@ -323,16 +325,17 @@
     function getChartData(type, scope) {
       var colors = getColors(type, scope);
       return Array.isArray(scope.chartData[0]) ?
-        getDataSets(scope.chartLabels, scope.chartData, scope.chartSeries || [], colors, scope.chartDatasetOverride) :
-        getData(scope.chartLabels, scope.chartData, colors, scope.chartDatasetOverride);
+        getDataSets(scope.chartLabels, scope.chartData, scope.chartSeries || [], colors, scope.chartDatasetOverride, scope.chartFill) :
+        getData(scope.chartLabels, scope.chartData, colors, scope.chartDatasetOverride, scope.chartFill);
     }
 
-    function getDataSets(labels, data, series, colors, datasetOverride) {
+    function getDataSets(labels, data, series, colors, datasetOverride, fill) {
       return {
         labels: labels,
         datasets: data.map(function (item, i) {
           var dataset = angular.extend({}, colors[i], {
             label: series[i],
+            fill: fill[i],
             data: item
           });
           if (datasetOverride && datasetOverride.length >= i) {
@@ -343,10 +346,11 @@
       };
     }
 
-    function getData(labels, data, colors, datasetOverride) {
+    function getData(labels, data, colors, datasetOverride, fill) {
       var dataset = {
         labels: labels,
         datasets: [{
+          fill: fill,
           data: data,
           backgroundColor: colors.map(function (color) {
             return color.pointBackgroundColor;
